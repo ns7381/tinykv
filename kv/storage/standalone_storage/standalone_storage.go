@@ -9,30 +9,27 @@ import (
 // StandAloneStorage is an implementation of `Storage` for a single-node TinyKV instance. It does not
 // communicate with other nodes and all data is stored locally.
 type StandAloneStorage struct {
-	// Your Data Here (1).
+	memStorage *storage.MemStorage
 }
 
 func NewStandAloneStorage(conf *config.Config) *StandAloneStorage {
-	// Your Code Here (1).
-	return nil
+	return &StandAloneStorage{
+		memStorage: storage.NewMemStorage(),
+	}
 }
 
 func (s *StandAloneStorage) Start() error {
-	// Your Code Here (1).
-	return nil
+	return s.memStorage.Start()
 }
 
 func (s *StandAloneStorage) Stop() error {
-	// Your Code Here (1).
-	return nil
+	return s.memStorage.Stop()
 }
 
 func (s *StandAloneStorage) Reader(ctx *kvrpcpb.Context) (storage.StorageReader, error) {
-	// Your Code Here (1).
-	return nil, nil
+	return s.memStorage.Reader(ctx)
 }
 
 func (s *StandAloneStorage) Write(ctx *kvrpcpb.Context, batch []storage.Modify) error {
-	// Your Code Here (1).
-	return nil
+	return s.memStorage.Write(ctx, batch)
 }
